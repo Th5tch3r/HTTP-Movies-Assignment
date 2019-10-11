@@ -13,6 +13,16 @@ export default class Movie extends React.Component {
     };
   }
 
+  deleteMovie = id => {
+    axios
+      .delete(`http://localhost:5000/api/movies/${id}`)
+      .catch(err => {
+        console.log(err)
+      })
+    this.props.history.push('/')
+    window.location.href = window.location.href
+  }
+
   componentDidMount() {
     this.fetchMovie(this.props.match.params.id);
   }
@@ -52,7 +62,11 @@ export default class Movie extends React.Component {
             Update
           </button>
         </NavLink>
-
+        
+        <button onClick={() => this.deleteMovie(this.state.movie.id)}
+        className="delete-button">
+          Delete
+        </button>
       </div>
     );
   }
